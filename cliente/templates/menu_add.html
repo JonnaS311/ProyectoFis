@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title>menu adder</title>
+</head>
+<body>
+    <form id="add" method="post" class="flex flex-col" action=""> {% csrf_token %}
+        <label>Nombre del Menú</label>
+        <input type="text" name="nombre" id="nombre" class="border">
+        <label>Imagen del Menú</label>
+        <input type="file" name="imagen" id="imagen" class="border">
+        <label>Descripcion del Menú</label>
+        <input type="text" name="descripcion" id="descripcion" class="border">
+        <label>Precio del Menú</label>
+        <input type="text" name="precio" id="precio" class="border">
+        <label>Productos del Menú</label>
+        <input type="checkbox" name="productos" id="productos">
+        <input type="submit" value="enviar" class="border">
+    </form>
+</body>
+</html>

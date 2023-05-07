@@ -9,10 +9,12 @@ class Producto(models.Model):
     #imagen = models.ImageField(upload_to='post/%Y/%m/%d')
 
 class Menu(models.Model):
-    precio_variable = models.IntegerField()
-    producto = models.ForeignKey(Producto,on_delete=models.CASCADE)
-    ingrediente = models.ForeignKey(Ingrediente,on_delete=models.CASCADE)
-    #imagen = models.ImageField(upload_to='post/%Y/%m/%d')
+    precio_variable = models.IntegerField(null=False)
+    nombre_menu = models.CharField(max_length=50, null=False, default="")
+    descripcion = models.CharField(max_length=200, null=False, default="")
+    imagen = models.ImageField(upload_to='photos', default="", null=True)
+    #producto = models.ForeignKey(Producto,on_delete=models.CASCADE, null=True, default=None)
+    #ingrediente = models.ForeignKey(Ingrediente,on_delete=models.CASCADE, null=True, default=None)
 
 class Restaurante(models.Model):
     nombre = models.CharField(max_length=30)
@@ -30,7 +32,7 @@ class Pedido(models.Model):
     estado = models.CharField(max_length=30)
     sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
 
-class Cliente(models.Model):
+class Client(models.Model):
     name = models.CharField(max_length=30)
     telefono = models.PositiveIntegerField()
     direccion_cliente = models.CharField(max_length=30)
