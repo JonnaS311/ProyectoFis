@@ -1,10 +1,5 @@
 from django.db import models
 
-
-class Ingrediente(models.Model):
-    nombre_ingrediente = models.CharField(max_length=50, null=False, default="")
-    precio_fijo = models.IntegerField()
-
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=50, null=False, default="")
     precio_fijo = models.IntegerField()
@@ -16,19 +11,14 @@ class Menu(models.Model):
     descripcion = models.CharField(max_length=200, null=False)
     imagen = models.ImageField(upload_to='photos', default="", null=True)
     producto = models.ManyToManyField(Producto, blank=True,through='MenuProducto')
-    ingrediente = models.ManyToManyField(Ingrediente, blank=True,through='MenuIngrediente')
 
 class MenuProducto(models.Model):
     menu = models.ForeignKey(Menu,on_delete=models.CASCADE,null=True, blank=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
 
-class MenuIngrediente(models.Model):
-    menu = models.ForeignKey(Menu,on_delete=models.CASCADE,null=True, blank=True)
-    ingrediente = models.ForeignKey(Ingrediente, on_delete=models.CASCADE, null=True, blank=True)
 class Restaurante(models.Model):
     nombre = models.CharField(max_length=30)
     telefono = models.PositiveIntegerField()
-    ingrediente = models.ForeignKey(Ingrediente,on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto,on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu,on_delete=models.CASCADE)
 
