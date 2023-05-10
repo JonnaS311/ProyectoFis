@@ -6,7 +6,7 @@
     <title>menu adder</title>
 </head>
 <body>
-    <form id="add" method="post" class="flex flex-col" action=""> {% csrf_token %}
+    <form id="add" method="post" class="flex flex-col items-center space-y-5  p-10" action=""> {% csrf_token %}
         <label>Nombre del Menú</label>
         <input type="text" name="nombre" id="nombre" class="border">
         <label>Imagen del Menú</label>
@@ -16,7 +16,12 @@
         <label>Precio del Menú</label>
         <input type="text" name="precio" id="precio" class="border">
         <label>Productos del Menú</label>
-        <input type="checkbox" name="productos" id="productos">
+        {% for i in productos %}
+        <div class="flex space-x-3">
+            <input type="checkbox" name="productos" id="productos">
+            <span>{{i.nombre_producto}}</span>
+        </div>
+        {% endfor %}
         <input type="submit" value="enviar" class="border">
     </form>
 </body>
