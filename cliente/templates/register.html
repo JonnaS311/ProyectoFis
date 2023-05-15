@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrate
+{% endblock %}
+{% block content %}
+    {% load static %}
+    <div class="flex items-center justify-center h-screen m-10">
+        <div class="bg-[url('{% static 'images/register.jpg' %}')] bg-cover w-2/4 h-5/6 static">
+            <div class="shadow-lg relative w-full h-full   hover:bg-gradient-to-r from-[#FFE969]/30">
+                 <form id="add" method="post" enctype="multipart/form-data" class=" absolute inline-block inset-y-0 left-0 flex flex-col items-center  space-y-5 p-10 bg-[#FF8A80] w-2/4 rounded-tr-[100px]" action=""> {% csrf_token %}
+                    <h1 class="text-xl text-center">Registrate a nuestra Rotonda de comidas...</h1>
+                    {{form}}
+                    <input type="submit" value="Crear" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

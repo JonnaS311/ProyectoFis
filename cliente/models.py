@@ -3,7 +3,9 @@ from django.db import models
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=50, null=False, default="")
     precio_fijo = models.IntegerField()
-    #imagen = models.ImageField(upload_to='post/%Y/%m/%d')
+    imagen = models.ImageField(upload_to='photos', default="", null=True)
+    def __str__(self):
+        return f"{self.nombre_producto}: {self.precio_fijo}"
 
 class Menu(models.Model):
     precio_variable = models.IntegerField(null=False)
@@ -32,7 +34,8 @@ class Pedido(models.Model):
     sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
 
 class Client(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
+    password = models.CharField(max_length=30,default="", null=False)
     telefono = models.PositiveIntegerField()
     direccion_cliente = models.CharField(max_length=30)
     pedido = models.ForeignKey(Pedido,on_delete=models.CASCADE, null=True, blank=True)
