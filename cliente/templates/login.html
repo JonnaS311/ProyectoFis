@@ -3,8 +3,8 @@
 {% block title %}
 Login
 {% endblock %}
+{% load static %}
 {% block content %}
-    {% load static %}
     <body class="bg-[url({% static 'images/login.jpg' %})] backdrop-blur-[3px]">
         <div class="flex justify-between flex-col h-full">
             {% include "nav_base.html" %}
