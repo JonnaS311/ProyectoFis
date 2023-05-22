@@ -21,3 +21,9 @@ class Editar_Menu(forms.Form):
     descripcion = forms.CharField(max_length=200)
     precio = forms.IntegerField()
     productos = forms.ModelMultipleChoiceField(queryset=Producto.objects.all())
+
+class Editar_Producto(forms.Form):
+    producto = forms.ModelChoiceField(queryset=Producto.objects.all())
+    nombre = forms.CharField(max_length=50)
+    imagen = forms.ImageField()
+    precio = forms.IntegerField()

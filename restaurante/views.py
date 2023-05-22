@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from .forms import Crear_Menu, Crear_Producto, Editar_Menu
-from .logic import agregar_menu, agregar_producto, editar_menu
+from .forms import Crear_Menu, Crear_Producto, Editar_Menu, Editar_Producto
+from .logic import agregar_menu, agregar_producto, editar_menu, editar_producto
 
 
 # Create your views here.
@@ -26,7 +26,7 @@ def menu_edit(request):
             editar_menu(infForm)
     else:
         formulario = Editar_Menu()
-    return render(request,"menu_editor.html", context={'form':formulario})
+    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus menús a tu antojo"})
 
 def producto_adder(request):
 
@@ -40,6 +40,17 @@ def producto_adder(request):
     else:
         formulario = Crear_Producto()
     return render(request,"producto_add.html", context={'form':formulario})
+
+def producto_edit(request):
+    if request.method == "POST":
+
+        formulario = Editar_Producto(request.POST,request.FILES)
+        if formulario.is_valid():
+            infForm = formulario.cleaned_data
+            editar_producto(infForm)
+    else:
+        formulario = Editar_Producto()
+    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus productos a tu antojo"})
 
 def inicio(request):
 
