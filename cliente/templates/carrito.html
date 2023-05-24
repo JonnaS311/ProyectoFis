@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Carrito</title>
+</head>
+<body>
+    {% include "nav_user.html" %}
+    {% load static %}
+    <!-- This is an example component -->
+<div class="flex mx-auto h-full w-full items-center justify-center space-x-4">
+    <img src="{% static 'images/DIETA.webp' %}" alt="medi" class="bg-cover bg-no-repeat bg-right w-5/12 min-h-screen object-cover">
+	<div class="p-4 w-full bg-lime-800/60 rounded-lg border shadow-md sm:p-8">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Aquí tienes tu pedido</h3>
+   </div>
+   <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-white">
+             {% for i in menus %}
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <img class="w-16 h-16 rounded-xl object-cover object-center" src="{{ i.imagen.url }}" alt="Neil image" >
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            {{i.nombre_menu }}
+                        </p>
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-50">
+                            {{i.descripcion}}
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <span>${{ i.precio_variable }}</span>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <input type="button" value="Editar" class="bg-yellow-600 p-2 rounded-tr-xl rounded-bl-xl hover:bg-yellow-500 cursor-pointer">
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <input type="button" value="Delete" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer">
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+   </div>
+        <div class="flex justify-center space-x-8 items-center m-4">
+            <h3 class="text-lg font-bold leading-none text-gray-900 dark:text-white">Precio final: ${{precio_final}}</h3>
+            <input type="button" value="Pagar" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer text-white">
+        </div>
+</div>
+</div>
+    {% include "footer.html" %}
+</body>
+</html>

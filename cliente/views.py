@@ -35,6 +35,15 @@ def register(request):
 def rotonda(request):
     return render(request, template_name='rotonda.html',context={'menus':Menu.objects.all()})
 
+@login_required
+def carrito(request):
+    menus = Menu.objects.all()
+    precio = 0
+    for menu in menus:
+        precio += menu.precio_variable
+    precio *= 1.19
+    return render(request, template_name='carrito.html',context={'menus':menus,'precio_final':int(precio)})
+
 def exit(request):
     logout(request)
     return redirect('login')

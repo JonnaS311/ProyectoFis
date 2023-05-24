@@ -18,7 +18,7 @@ Login
                      <a class="cursor-pointer hover:text-[#FF5252] self-end">¿Olvidaste tu contraseña?</a>
                      <input type="submit" value="Iniciar Sesión" class="cursor-pointer text-[#ffffff] px-10 py-2 rounded-2xl  bg-[#FF8A80] hover:bg-[#FF5252]">
 
-                 <p class="self-center">¿No tienes cuenta? <a class="cursor-pointer hover:text-[#FF5252]">Abrir cuenta</a></p>
+                 <p class="self-center">¿No tienes cuenta? <a href="{% url 'register' %}" class="cursor-pointer hover:text-[#FF5252]">Abrir cuenta</a></p>
             </form>
             <div class="basis-1/4">
                 {% include "footer.html" %}
