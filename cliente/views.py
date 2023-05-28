@@ -4,7 +4,7 @@ from restaurante.models import Menu
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.http import JsonResponse
-from .logic import cargar_carrito, delete_carrito, cargar_menus
+from .logic import cargar_carrito, delete_carrito, cargar_menus, crear_cliente, generar_pedido
 import json
 
 
@@ -12,10 +12,9 @@ def login_app(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         # Verificar las credenciales del usuario
         user = authenticate(request, username=username, password=password)
-
+        print(user)
         if user is not None:
             # Iniciar sesión
             login(request, user)
@@ -30,9 +29,11 @@ def register(request):
         formulario = Crear_Cliente(request.POST,request.FILES)
         if formulario.is_valid():
             infForm = formulario.cleaned_data
+            print(infForm)
+            crear_cliente(infForm)
     else:
         formulario = Crear_Cliente()
-    return render(request, template_name='register.html', context={'form':formulario})
+    return render(request, template_name='register_restaurante.html', context={'form':formulario})
 
 @login_required
 def rotonda(request):
@@ -47,8 +48,13 @@ def carrito(request):
     menus = cargar_menus()
     if request.method == "POST":
         id = json.loads(request.body)
-        delete_carrito(int(id['id']))
+        if id['operacion']=='eliminar':
+            print(id)
+            delete_carrito(int(id['id']))
+        elif id['operacion']=='pagar':
+            generar_pedido(int(id['id']),request.user.id)
         return redirect('login')
+
     return render(request, template_name='carrito.html',context={'menus':menus[0],'precio_final':menus[1]})
 
 def exit(request):

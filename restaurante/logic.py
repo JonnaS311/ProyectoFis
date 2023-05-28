@@ -1,8 +1,14 @@
-from .models import Menu, MenuProducto, Producto
+import datetime
 
-def agregar_menu(query):
+from django.contrib.auth.hashers import make_password
+
+from .models import Menu, MenuProducto, Producto, Restaurante
+
+
+def agregar_menu(query, restaurante):
     menu = Menu(nombre_menu = query.get("nombre"), precio_variable = int( query.get("precio")),
-                descripcion = query.get("descripcion"), imagen = query.get("imagen"))
+                descripcion = query.get("descripcion"), imagen = query.get("imagen"),
+                restaurante = Restaurante.objects.get(id=restaurante))
     # Sumatoria del precio
     rel_menu_producto = list()
     precio = query.get("precio")
@@ -14,9 +20,9 @@ def agregar_menu(query):
     MenuProducto.objects.bulk_create(rel_menu_producto)
 
 
-def agregar_producto(query):
+def agregar_producto(query, restaurante):
     producto = Producto(nombre_producto = query.get("nombre"), precio_fijo = int(query.get("precio")),
-                imagen = query.get("imagen"))
+                imagen = query.get("imagen"),restaurante = Restaurante.objects.get(id=restaurante))
     producto.save()
 
 
@@ -51,3 +57,13 @@ def editar_producto(query):
     producto.precio_fijo = query.get('precio')
     Menu.objects.bulk_update(lista_menus,['precio_variable'])
     producto.save()
+
+def crear_restaurante(info):
+    # Hash de la contraseña
+    password_hash = make_password(info['password'])
+
+    # Crear instancia del cliente
+    restaurante = Restaurante(nombre=info['nombre'], password=password_hash, telefono=info['telefono'],
+                      especialidad=info['especialidad'])
+    restaurante.save()
+

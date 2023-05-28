@@ -5,8 +5,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Carrito</title>
     {% load static %}
-     {% csrf_token %}
-    <script src="{% static 'scripts/delete.js' %}"></script>
+    {% csrf_token %}
+    <script src="{% static 'scripts/pedido.js' %}"></script>
 </head>
 <body>
     {% include "nav_user.html" %}
@@ -51,7 +51,9 @@
    </div>
         <div class="flex justify-center space-x-8 items-center m-4">
             <h3 class="text-lg font-bold leading-none text-gray-900 dark:text-white">Precio final: ${{precio_final}}</h3>
-            <input type="button" value="Pagar" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer text-white">
+            <a href="{%url 'rotonda' %}">
+            <input type="button" value="Pagar" onclick="pagar({{precio_final}})" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer text-white">
+            </a>
         </div>
 </div>
 </div>
