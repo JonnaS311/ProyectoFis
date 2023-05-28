@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Carrito</title>
+    {% load static %}
+     {% csrf_token %}
+    <script src="{% static 'scripts/delete.js' %}"></script>
 </head>
 <body>
     {% include "nav_user.html" %}
-    {% load static %}
     <!-- This is an example component -->
 <div class="flex mx-auto h-full w-full items-center justify-center space-x-4">
     <img src="{% static 'images/DIETA.webp' %}" alt="medi" class="bg-cover bg-no-repeat bg-right w-5/12 min-h-screen object-cover">
@@ -18,7 +20,7 @@
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-white">
              {% for i in menus %}
-            <li class="py-3 sm:py-4">
+            <li class="py-3 sm:py-4 elemento">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
                         <img class="w-16 h-16 rounded-xl object-cover object-center" src="{{ i.imagen.url }}" alt="Neil image" >
@@ -38,7 +40,9 @@
                         <input type="button" value="Editar" class="bg-yellow-600 p-2 rounded-tr-xl rounded-bl-xl hover:bg-yellow-500 cursor-pointer">
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        <input type="button" value="Delete" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer">
+                        <a href="{% url 'carrito' %}">
+                        <input type="button" value="Delete" onclick="eliminar({{ i.id }})" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer">
+                        </a>
                     </div>
                 </div>
             </li>

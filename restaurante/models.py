@@ -5,6 +5,7 @@ class Producto(models.Model):
     nombre_producto = models.CharField(max_length=50, null=False, default="")
     precio_fijo = models.IntegerField()
     imagen = models.ImageField(upload_to='photos', default="", null=True)
+    # restaurente
     def __str__(self):
         return f"{self.nombre_producto}: {self.precio_fijo}"
 

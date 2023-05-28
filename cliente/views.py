@@ -3,6 +3,9 @@ from .forms import Crear_Cliente
 from restaurante.models import Menu
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
+from django.http import JsonResponse
+from .logic import cargar_carrito, delete_carrito, cargar_menus
+import json
 
 
 def login_app(request):
@@ -33,16 +36,20 @@ def register(request):
 
 @login_required
 def rotonda(request):
+    if request.method == "POST":
+        div_id = json.loads(request.body)
+        cargar_carrito(int(div_id['id']))
+        return JsonResponse(div_id)
     return render(request, template_name='rotonda.html',context={'menus':Menu.objects.all()})
 
 @login_required
 def carrito(request):
-    menus = Menu.objects.all()
-    precio = 0
-    for menu in menus:
-        precio += menu.precio_variable
-    precio *= 1.19
-    return render(request, template_name='carrito.html',context={'menus':menus,'precio_final':int(precio)})
+    menus = cargar_menus()
+    if request.method == "POST":
+        id = json.loads(request.body)
+        delete_carrito(int(id['id']))
+        return redirect('login')
+    return render(request, template_name='carrito.html',context={'menus':menus[0],'precio_final':menus[1]})
 
 def exit(request):
     logout(request)

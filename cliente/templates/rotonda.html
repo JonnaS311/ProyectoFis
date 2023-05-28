@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Menu</title>
+    {% load static %}
+    {% csrf_token %}
+    <script src="{% static 'scripts/test.js' %}"></script>
 </head>
 <body>
     {% include "nav_user.html" %}
-    {% load static %}
     <div class="bg-white">
       <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight text-gray-900">Productos</h2>
@@ -18,17 +20,15 @@
             <!-- Mas Productos -->
             <!-- hacer uso de bucles para iterar para cada uno de los productos disponibles -->
             {% for i in menus %}
-              <div class="group relative">
-                <div class="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                  <img src="{{ i.imagen.url }}"  class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+              <div class="group relative selectable" id="{{i.id}}">
+                <div  class="cursor-pointer min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                  <img src="{{ i.imagen.url }}"  class="cursor-pointer h-full w-full object-cover object-center lg:h-full lg:w-full">
                 </div>
                 <div class="mt-4 flex justify-between">
                   <div>
                     <h3 class="text-sm text-gray-700">
-                      <a href="#">
                         <span aria-hidden="true" class="absolute inset-0"></span>
                         {{i.nombre_menu }}
-                      </a>
                     </h3>
                     <p class="mt-1 text-sm text-gray-500">{{i.descripcion}}</p>
                   </div>
