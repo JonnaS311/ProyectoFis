@@ -20,7 +20,7 @@
    <div class="flow-root">
         <ul role="list" class="divide-y divide-gray-200 dark:divide-white">
              {% for i in menus %}
-            <li class="py-3 sm:py-4 elemento">
+            <li id="{{i.id}}" class="py-3 sm:py-4 elemento">
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
                         <img class="w-16 h-16 rounded-xl object-cover object-center" src="{{ i.imagen.url }}" alt="Neil image" >

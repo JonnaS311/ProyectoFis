@@ -36,6 +36,7 @@ class Producto(models.Model):
     nombre_producto = models.CharField(max_length=50, null=False, default="")
     precio_fijo = models.IntegerField()
     imagen = models.ImageField(upload_to='photos', default="", null=True)
+    disponibilidad = models.PositiveIntegerField(default=0,null=False)
     restaurante = models.ForeignKey(Restaurante,on_delete=models.CASCADE,null=False)
     def __str__(self):
         return f"{self.nombre_producto}: {self.precio_fijo}"
@@ -46,6 +47,7 @@ class Menu(models.Model):
     descripcion = models.CharField(max_length=200, null=False)
     imagen = models.ImageField(upload_to='photos', default="", null=True)
     producto = models.ManyToManyField(Producto, blank=True,through='MenuProducto')
+    disponibilidad = models.PositiveIntegerField(default=0, null=False)
     restaurante = models.ForeignKey(Restaurante,on_delete=models.CASCADE,null=False)
 
     def __str__(self):

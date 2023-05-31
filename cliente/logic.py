@@ -34,7 +34,16 @@ def cargar_menus():
     precio *= 1.19
     return menus, precio
 
-def generar_pedido(valor,cliente):
+def generar_pedido(valor,cliente,act):
     pedido = Pedido(fecha = date.today(),estado = 'pago', pago = valor, cliente_id=cliente)
     pedido.save()
+    lista_menus = list()
+    for i in lista_carrito:
+        menu = Menu.objects.get(id=i)
+        if menu.disponibilidad > 0:
+            menu.disponibilidad -= 1
+            print(menu.disponibilidad)
+            lista_menus.append(menu)
+
+    Menu.objects.bulk_update(lista_menus,['disponibilidad'])
     lista_carrito.clear()

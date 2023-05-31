@@ -34,11 +34,19 @@ function eliminar(dato) {
 }
 
 function pagar(dato) {
-      // Obtener el valor del token CSRF desde las cookies
+    var listaIds = [];
+    for (var i = 0; i < divs.length; i++) {
+        var id = divs[i].id;
+        listaIds.push(id);
+
+    }
+   console.log(listaIds);
+  // Obtener el valor del token CSRF desde las cookies
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   var data = {
     operacion: "pagar",
     id: dato,
+    carrito: listaIds,
     'csrfmiddlewaretoken': csrftoken
   };
     console.log(data);

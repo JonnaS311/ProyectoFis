@@ -48,14 +48,17 @@ def carrito(request):
     menus = cargar_menus()
     if request.method == "POST":
         id = json.loads(request.body)
+        print(id)
         if id['operacion']=='eliminar':
             print(id)
             delete_carrito(int(id['id']))
         elif id['operacion']=='pagar':
-            generar_pedido(int(id['id']),request.user.id)
-        return redirect('login')
+            print(id)
+            generar_pedido(int(id['id']),request.user.id,id['carrito'])
+        return redirect('rotonda')
 
-    return render(request, template_name='carrito.html',context={'menus':menus[0],'precio_final':menus[1]})
+    return render(request, template_name='carrito.html',
+                  context={'menus':menus[0],'precio_final':int(menus[1])})
 
 def exit(request):
     logout(request)

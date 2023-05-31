@@ -24,14 +24,18 @@ def menu_adder(request):
 @login_required
 #@permission_required('Restaurante.is_restaurant')
 def menu_edit(request):
+    formulario = Editar_Menu()
     if request.method == "POST":
-        formulario = Editar_Menu(request.POST,request.FILES)
+        formulario = Editar_Menu(None, request.POST,request.FILES)
+        print(formulario.is_valid())
         if formulario.is_valid():
             infForm = formulario.cleaned_data
             editar_menu(infForm)
-    else:
-        formulario = Editar_Menu()
-    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus menús a tu antojo"})
+            return redirect("menu_editor")
+    elif request.method == "GET":
+        formulario = Editar_Menu(query = request.GET)
+    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus menús a tu antojo",
+                                                  'type':1})
 
 @login_required
 #@permission_required('Restaurante.is_restaurant')
@@ -48,15 +52,18 @@ def producto_adder(request):
 @login_required
 #@permission_required('Restaurante.is_restaurant')
 def producto_edit(request):
+    formulario = Editar_Producto()
     if request.method == "POST":
-
-        formulario = Editar_Producto(request.POST,request.FILES)
+        formulario = Editar_Producto(None,request.POST,request.FILES)
         if formulario.is_valid():
             infForm = formulario.cleaned_data
+            print(infForm)
             editar_producto(infForm)
-    else:
-        formulario = Editar_Producto()
-    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus productos a tu antojo"})
+            return redirect("producto_editor")
+    elif request.method == "GET":
+        formulario = Editar_Producto(query=request.GET)
+    return render(request,"editor.html", context={'form':formulario,'text':"Personaliza tus productos a tu antojo",
+                                                  'type':0})
 
 @login_required
 #@permission_required('Restaurante.is_restaurant')
@@ -68,9 +75,7 @@ def login_rest(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         # Verificar las credenciales del usuario
-        print(username," + ", password)
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
             # Iniciar sesión
             login(request, user)
@@ -85,7 +90,6 @@ def register(request):
         formulario = Crear_Restaurante(request.POST,request.FILES)
         if formulario.is_valid():
             infForm = formulario.cleaned_data
-            print(infForm)
             crear_restaurante(infForm)
     else:
         formulario = Crear_Restaurante()
