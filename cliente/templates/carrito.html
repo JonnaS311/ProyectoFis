@@ -36,9 +36,7 @@
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         <span>${{ i.precio_variable }}</span>
                     </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                        <input type="button" value="Editar" class="bg-yellow-600 p-2 rounded-tr-xl rounded-bl-xl hover:bg-yellow-500 cursor-pointer">
-                    </div>
+                  
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         <a href="{% url 'carrito' %}">
                         <input type="button" value="Delete" onclick="eliminar({{ i.id }})" class="bg-rose-700 p-2 rounded-tr-xl rounded-bl-xl hover:bg-rose-600 cursor-pointer">

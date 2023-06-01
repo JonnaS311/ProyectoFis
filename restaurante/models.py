@@ -33,7 +33,7 @@ class Restaurante(AbstractBaseUser):
     USERNAME_FIELD = 'nombre'
 
 class Producto(models.Model):
-    nombre_producto = models.CharField(max_length=50, null=False, default="")
+    nombre_producto = models.CharField(max_length=100, null=False, default="")
     precio_fijo = models.IntegerField()
     imagen = models.ImageField(upload_to='photos', default="", null=True)
     disponibilidad = models.PositiveIntegerField(default=0,null=False)
@@ -43,8 +43,8 @@ class Producto(models.Model):
 
 class Menu(models.Model):
     precio_variable = models.IntegerField(null=False, default=0)
-    nombre_menu = models.CharField(max_length=50, null=False)
-    descripcion = models.CharField(max_length=200, null=False)
+    nombre_menu = models.CharField(max_length=100, null=False)
+    descripcion = models.CharField(max_length=400, null=False)
     imagen = models.ImageField(upload_to='photos', default="", null=True)
     producto = models.ManyToManyField(Producto, blank=True,through='MenuProducto')
     disponibilidad = models.PositiveIntegerField(default=0, null=False)

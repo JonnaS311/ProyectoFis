@@ -27,6 +27,7 @@ def agregar_producto(query, restaurante):
     producto = Producto(nombre_producto = query.get("nombre"), precio_fijo = int(query.get("precio")),
                         imagen = query.get("imagen"),restaurante = Restaurante.objects.get(id=restaurante),
                         disponibilidad = query.get("cantidad"))
+    print(producto)
     producto.save()
 
 
